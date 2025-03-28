@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Rosa</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="carrossel.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="parte-de-baixo.css">
+    <link rel="stylesheet" href="grid-produtos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="font-awesome/css/all.min.css">
+</head>
+
+<body>
+
+    <section class="cta">
+        <p><span class="sublinhado"><a href="https://wa.me/5514997358324" target="_blank">Faça seu pedido</a></span><strong> pelo WhatsApp!</strong></p>
+    </section>
+
+    <main class="header">
+
+        <section class="nav1">
+            <div class="div1">
+                <h1><a href="index.html">Floricultura Flor Amor</a></h1>
+            </div>
+            <div class="div2">
+                <form class="search-bar">
+                    <input type="text" placeholder="Digite aqui o que procura..." name="search">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass lupa"></i></button>
+                </form>
+            </div>
+            <div class="div3">
+                <i class="fa-solid fa-user icon"></i>
+                <i class="fa-solid fa-cart-shopping icon cart-icon" onclick="toggleCarrinho()"></i>
+            </div>
+        </section>
+
+        <nav>
+            <ul class="nav2">
+                <li><a href="arranjos.html">arranjos</a></li>
+                <li><a href="buques.html">buquês</a></li>
+                <li><a href="cestas.html">cestas</a></li>
+                <li><a href="chocolates.html">chocolates</a></li>
+                <li><a href="coroas.html">coroas</a></li>
+                <li><a href="flores.html">flores</a></li>
+                <li><a href="orquideas.html">orquídeas</a></li>
+                <li><a href="pelucias.html">pelúcias</a></li>
+            </ul>
+        </nav>
+
+    </main>
+
+    <!-- Carrinho de compras (sidebar) -->
+    <div id="carrinho" class="carrinho">
+        <button class="fechar" onclick="toggleCarrinho()">×</button>
+        <h2>🛒 Meu Carrinho</h2>
+        <ul id="lista-carrinho"></ul>
+        <p id="total">Total: R$ 0,00</p>
+        <button id="finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+
+    <div class="corpo">
+        <h2 id="titulo">cestas</h2>
+        <div class="grid"></div>
+        <button id="verMais" class="botao-ver-mais">mostrar mais</button>
+    </div>
+
+    <section id="cta-baixo">
+        <h2>quer ficar por dentro das promos? ❤️<br>receba tudo em 1ª mão! 👇🏻✨</h2>
+        <form>
+            <input type="text" id="telefone" placeholder="Digite seu WhatsApp" maxlength="15"
+                oninput="formatarTelefone(this)" />
+            <button onclick="enviarMensagem()">sim!</button>
+        </form>
+    </section>
+
+    <iframe id="map"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d381.77948532545986!2d-49.0629585199601!3d-22.320874493853154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94bf67a2eae799d3%3A0xb47955a7337f74f7!2sFloricultura%20Flor%20Amor!5e0!3m2!1spt-BR!2sbr!4v1742947349624!5m2!1spt-BR!2sbr"
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    <footer class="footer">
+        <button id="voltarTopo" class="botao-topo"><i class="fa-regular fa-circle-up"></i></button>
+        <p>Todos os direitos reservados © 2025 | Rodrigueiro Flores LTDA | CNPJ: 55.560.310/0001-52 Contato: (14)
+            99735-8324</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+    <script>
+
+        let carrinho = [];
+        let total = 0;
+
+        function adicionarAoCarrinho(nome, preco) {
+            // Verifica se o item já existe no carrinho, se sim, apenas aumenta a quantidade
+            const itemExistente = carrinho.find(item => item.nome === nome);
+            if (itemExistente) {
+                itemExistente.quantidade++;
+            } else {
+                carrinho.push({ nome, preco, quantidade: 1 });
+            }
+            atualizarCarrinho();
+        }
+
+        function atualizarCarrinho() {
+            const listaCarrinho = document.getElementById("lista-carrinho");
+            listaCarrinho.innerHTML = "";
+            total = 0;
+
+            carrinho.forEach(produto => {
+                const item = document.createElement("li");
+                item.innerHTML = `
+            <p class="nome-produto">${produto.nome}</p>
+            <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
+            <div class="controle-quantidade">
+                <button onclick="alterarQuantidade('${produto.nome}', -1)">-</button>
+                <span class="quantidade-produto">${produto.quantidade}</span>
+                <button onclick="alterarQuantidade('${produto.nome}', 1)">+</button>
+            </div>
+        `;
+                listaCarrinho.appendChild(item);
+                total += produto.preco * produto.quantidade;
+            });
+
+            document.getElementById("total").textContent = `Total: R$ ${total.toFixed(2)}`;
+        }
+
+        function alterarQuantidade(nome, quantidade) {
+            const item = carrinho.find(item => item.nome === nome);
+            if (item) {
+                item.quantidade += quantidade;
+                if (item.quantidade <= 0) {
+                    // Remove o item do carrinho se a quantidade for 0 ou negativa
+                    carrinho = carrinho.filter(item => item.nome !== nome);
+                }
+                atualizarCarrinho();
+            }
+        }
+
+        function finalizarCompra() {
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+
+    let mensagem = "Olá, gostaria de comprar:\n";  // Inicia com a saudação
+
+    carrinho.forEach(produto => {
+        // Formatando a mensagem para cada produto
+        mensagem += `x${produto.quantidade} ${produto.nome} - R$ ${produto.preco.toFixed(2)} unid\n`;
+    });
+
+    // Adicionando o total sem o espaço antes de "Total"
+    mensagem += `*Total: R$ ${total.toFixed(2)}*`;  // O total aparece imediatamente após os produtos
+
+    const numeroWhatsApp = "5514997358324"; // Novo número de WhatsApp
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, "_blank");
+}
+
+
+
+        function toggleCarrinho() {
+            const carrinhoElement = document.getElementById("carrinho");
+            if (!carrinhoElement.classList.contains("ativo")) {
+                carrinhoElement.classList.add("ativo");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".botao-comprar").forEach(botao => {
+                botao.addEventListener("click", function () {
+                    const nome = this.parentElement.querySelector(".nome-produto").textContent;
+                    const preco = parseFloat(this.parentElement.querySelector(".preco-produto").textContent.replace("R$ ", "").replace(",", "."));
+                    adicionarAoCarrinho(nome, preco);
+
+                    // Abre o carrinho automaticamente após adicionar o item e mantém aberto
+                    toggleCarrinho();
+                });
+            });
+
+            // Adiciona evento ao botão de fechar o carrinho
+            document.querySelectorAll(".fechar").forEach(button => {
+                button.addEventListener("click", function () {
+                    document.getElementById("carrinho").classList.remove("ativo"); // Fecha o carrinho
+                });
+            });
+        });
+
+        //------------------------------------------------- array de produtos
+        const produtos = [
+            {
+                nome: "Rosa Decorada + Ferrero",
+                descricao: "Uma linda rosa decorada com folhagens naturais, envolta em celofane transparente, acompanhada de uma caixa com 12 bombons Ferrero Rocher. 🌹🍫✨",
+                preco: "R$ 129,00",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Girassóis",
+                descricao: "Buquê com girassóis frescos, ideal para iluminar qualquer ambiente e surpreender quem você ama. 🌻💛",
+                preco: "R$ 79,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            },
+            {
+                nome: "Buquê de Tulipas",
+                descricao: "Tulipas coloridas em um arranjo sofisticado, perfeitas para presentear em momentos especiais. 🌷🎁",
+                preco: "R$ 99,90",
+                imagem: "assets/produtos/buque.jpeg"
+            }
+        ];
+
+        const grid = document.querySelector(".grid");
+        const botaoVerMais = document.getElementById("verMais");
+
+        let indiceInicial = 0;
+        const quantidadePorVez = 4;
+
+        function carregarProdutos() {
+            // Carrega produtos em blocos de 4
+            const proximoIndice = indiceInicial + quantidadePorVez;
+            const produtosParaMostrar = produtos.slice(indiceInicial, proximoIndice);
+
+            produtosParaMostrar.forEach(produto => {
+                const item = document.createElement("div");
+                item.classList.add("produtos");
+
+                item.innerHTML = `
+            <img src="${produto.imagem}" alt="${produto.nome}">
+            <p class="nome-produto">${produto.nome}</p>
+            <p class="descricao-produto">${produto.descricao}</p>
+            <p class="preco-produto">${produto.preco}</p>
+            <button class="botao-comprar">Comprar</button>
+        `;
+
+                grid.appendChild(item);
+            });
+
+            // Atualiza o índice inicial para a próxima carga
+            indiceInicial = proximoIndice;
+
+            // Se não houver mais produtos para carregar, esconde o botão
+            if (indiceInicial >= produtos.length) {
+                botaoVerMais.style.display = "none";
+            }
+        }
+
+        // Exibe os primeiros produtos ao carregar a página
+        carregarProdutos();
+
+        // Só exibe o botão "Ver Mais" se houver mais produtos para carregar
+        if (produtos.length > quantidadePorVez) {
+            botaoVerMais.style.display = "block";
+        }
+
+        // Adiciona evento ao botão para carregar mais produtos ao clicar
+        botaoVerMais.addEventListener("click", carregarProdutos);
+
+        //-------------------------------------------------------- botao para voltar para cima
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const botaoTopo = document.getElementById("voltarTopo");
+
+            // Mostrar o botão quando o usuário rolar para baixo
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 300) {
+                    botaoTopo.style.display = "block";
+                } else {
+                    botaoTopo.style.display = "none";
+                }
+            });
+
+            // Rolar suavemente para o topo ao clicar no botão
+            botaoTopo.addEventListener("click", function () {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

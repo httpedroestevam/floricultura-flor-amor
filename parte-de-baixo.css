@@ -1,0 +1,35 @@
+#cta-baixo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--branco);
+    background-color: var(--rosa);
+    padding: 90px;
+}
+
+#cta-baixo h2 {
+    font-size: 34px;
+}
+
+#cta-baixo input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 13vw;
+    margin-top: 20px;
+    color: var(--rosa);
+}
+
+#cta-baixo button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 11px;
+    color: var(--rosa);
+    background-color: var(--branco);
+    font-weight: bold;
+    margin-left: 5px;
+}

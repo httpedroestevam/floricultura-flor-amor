@@ -1,0 +1,243 @@
+.cta {
+    background-color: var(--rosa);
+    color: var(--branco);
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+}
+
+.cta {
+    font-size: 19px;
+}
+
+.cta strong {
+    font-weight: bold;
+}
+
+.sublinhado {
+    text-decoration: underline;
+}
+
+.nav1 {
+    display: flex;
+    height: 66px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--cinzinha);
+    padding: 45px;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div1 h1 {
+    color: var(--rosa);
+    font-size: 30px;
+}
+
+.div2 {
+    width: 40vw;
+}
+
+.div3 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    width: 100vw;
+    padding: 8px 0px 8px 35px;
+    /* Distancia do placeholder */
+}
+
+.search-bar button {
+    position: absolute;
+    left: 4px;
+    /* Distancia da lupa */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: none;
+}
+
+.nav2 {
+    display: flex;
+    justify-content: center;
+    height: 66px;
+    width: auto;
+    align-items: center;
+    background-color: var(--cinzinha);
+    padding-bottom: 20px;
+}
+
+.nav2 li {
+    padding: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.0s ease;
+}
+
+.nav2 li:hover {
+    color: var(--rosa);
+}
+
+.icon {
+    font-size: 1.2em;
+    padding: 0 5px;
+    color: var(--rosa);
+}
+
+.lupa {
+    color: #929292;
+    font-size: 1.2em;
+    padding-left: 10px;
+}
+
+.banner {
+    width: 100vw;
+    /*filter: blur(3px);  Aplica o desfoque */
+}
+
+.botao-topo {
+    all: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+    /* Escondido por padrão */
+
+}
+
+.fa-circle-up {
+    color: #ccc;
+    font-size: 2em;
+}
+
+/* Estilização do carrinho */
+.carrinho {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    /* Garante que o carrinho fica por cima */
+}
+
+.carrinho.ativo {
+    right: 0;
+}
+
+.carrinho h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.carrinho ul {
+    list-style: none;
+    padding: 0;
+}
+
+.carrinho li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.carrinho p {
+    font-weight: bold;
+}
+
+.carrinho .fechar {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#finalizar {
+    width: 100%;
+    padding: 10px;
+    background: var(--rosa);
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Ícone do carrinho */
+.cart-icon {
+    cursor: pointer;
+}
+
+.carrinho .nome-produto {
+    font-weight: normal;
+    font-size: 16px;
+    margin: 0;
+}
+
+.carrinho .preco-produto {
+    font-weight: normal;
+    font-size: 16px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.carrinho .controle-quantidade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre os elementos */
+    margin-left: 10px;
+}
+
+.carrinho .controle-quantidade button {
+    background-color: var(--rosa);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrinho .controle-quantidade span.quantidade-produto {
+    font-size: 16px;
+}
+
+.carrinho #total {
+    margin-top: 10px;
+}

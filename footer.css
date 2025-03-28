@@ -1,0 +1,12 @@
+.footer {
+    background-color: rgb(57, 57, 57);
+    display: flex;
+    justify-content: center;
+    color: var(--branco);
+    padding: 50px;
+    margin-top: -5px;
+}
+
+#map {
+    width: 100vw;
+}

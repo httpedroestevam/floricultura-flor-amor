@@ -1,0 +1,45 @@
+.corpo {
+    height: auto;
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas com tamanhos iguais */
+    grid-template-rows: repeat(4,auto); /* 4 linhas ajustadas ao conteúdo */
+    gap: 20px; /* Espaço entre os produtos */
+    margin: 30px 30px 0 30px;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinha tudo ao centro horizontalmente */
+    justify-content: space-between; /* Distribui o conteúdo verticalmente */
+    text-align: center; /* Centraliza o texto */
+    max-width: 100%;
+}
+
+.produtos img {
+    width: 80%; /* Faz as imagens se ajustarem */
+    height: auto;
+}
+
+.botao-ver-mais {
+    display: block !important;
+    margin: 0 auto 20px auto;
+    padding: 15px 20px 15px 20px;
+    font-size: 19px;
+    font-weight: bold;
+    background-color: var(--rosa);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.botao-ver-mais:hover {
+    background-color: var(--rosa-escuro);
+}
+
+
